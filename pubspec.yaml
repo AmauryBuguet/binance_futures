@@ -1,5 +1,5 @@
 name: binance_futures
-description: Unofficial Dart wrapper for Binance SPOT API (REST endpoints + Websockets).
+description: Unofficial Dart wrapper for Binance FUTURES API (REST endpoints + Websockets).
 version: 0.0.1
 homepage: https://github.com/AmauryBuguet/binance_futures
 repository: https://github.com/AmauryBuguet/binance_futures
