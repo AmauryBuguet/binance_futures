@@ -21,7 +21,7 @@ class Symbol {
   List<String> underlyingSubType;
   int settlePlan;
   double triggerProtect;
-  List<dynamic> filters;
+  List<Filter> filters;
   List<OrderType> orderTypes;
   List<TimeInForce> timeInForceList;
   double liquidationFee;
@@ -47,7 +47,9 @@ class Symbol {
         underlyingSubType = m['underlyingSubType'].cast<String>(),
         settlePlan = m['settlePlan'],
         triggerProtect = double.parse(m['triggerProtect']),
-        filters = m['filters'],
+        filters = (m['filters'] as List<dynamic>)
+            .map((e) => Filter.fromMap(e))
+            .toList(),
         orderTypes = m['OrderType'] is List<String>
             ? (m['OrderType'] as List<String>)
                 .map((e) => e.toOrderTypeEnum())
@@ -60,6 +62,14 @@ class Symbol {
             : [],
         liquidationFee = double.parse(m['liquidationFee']),
         marketTakeBound = double.parse(m['marketTakeBound']);
+}
+
+class Filter {
+  String type;
+  Map<String, dynamic> data;
+  Filter.fromMap(m)
+      : type = m["filterType"],
+        data = m;
 }
 
 class RateLimit {
