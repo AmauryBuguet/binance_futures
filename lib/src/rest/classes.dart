@@ -22,8 +22,8 @@ class Symbol {
   int settlePlan;
   double triggerProtect;
   List<dynamic> filters;
-  List<OrderType> orderType;
-  List<TimeInForce> timeInForce;
+  List<OrderType> orderTypes;
+  List<TimeInForce> timeInForceList;
   double liquidationFee;
   double marketTakeBound;
 
@@ -48,14 +48,16 @@ class Symbol {
         settlePlan = m['settlePlan'],
         triggerProtect = double.parse(m['triggerProtect']),
         filters = m['filters'],
-        orderType = m.containsKey('OrderType')
+        orderTypes = m.containsKey('OrderType')
             ? (m['OrderType'] as List<String>)
                 .map((e) => e.toOrderTypeEnum())
                 .toList()
             : [],
-        timeInForce = (m['timeInForce'] ?? [] as List<String>)
-            .map((e) => e.toTimeInForceEnum())
-            .toList(),
+        timeInForceList = m.containsKey('timeInForce')
+            ? (m['timeInForce'] as List<String>)
+                .map((e) => e.toTimeInForceEnum())
+                .toList()
+            : [],
         liquidationFee = double.parse(m['liquidationFee']),
         marketTakeBound = double.parse(m['marketTakeBound']);
 }

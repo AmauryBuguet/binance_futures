@@ -10,6 +10,7 @@ export 'src/rest/classes.dart';
 export 'src/rest/enums.dart';
 export 'src/rest/endpoints/market_data.dart';
 export 'src/rest/endpoints/user_data.dart';
+export 'src/rest/endpoints/account_trade.dart';
 
 export 'src/websocket/classes.dart';
 export 'src/websocket/enums.dart';
