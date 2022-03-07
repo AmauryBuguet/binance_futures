@@ -1,4 +1,5 @@
 import 'package:binance_futures/src/common/classes.dart';
+import 'package:binance_futures/src/common/enums.dart';
 import 'package:either_dart/either.dart';
 
 import '../classes.dart';
@@ -31,12 +32,12 @@ extension MarketEndpoints on BinanceFutures {
   /// Get Binance futures orderbook
   Future<Either<String, Orderbook>> orderBook({
     required String symbol,
-    String? limit,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
     };
-    if (limit != null) params['limit'] = limit;
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/depth',
       type: RequestType.GET,
@@ -47,12 +48,12 @@ extension MarketEndpoints on BinanceFutures {
   /// Get list of recent trades
   Future<Either<String, List<Trade>>> recentTradesList({
     required String symbol,
-    String? limit,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
     };
-    if (limit != null) params['limit'] = limit;
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/trades',
       type: RequestType.GET,
@@ -67,14 +68,14 @@ extension MarketEndpoints on BinanceFutures {
   /// This endpoint need your API key only, not the secret key.
   Future<Either<String, List<Trade>>> oldTradesLookup({
     required String symbol,
-    String? limit,
-    String? fromId,
+    int? limit,
+    int? fromId,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
     };
-    if (limit != null) params['limit'] = limit;
-    if (fromId != null) params['fromId'] = fromId;
+    if (limit != null) params['limit'] = limit.toString();
+    if (fromId != null) params['fromId'] = fromId.toString();
     return sendRequest(
       path: 'fapi/v1/historicalTrades',
       type: RequestType.GET,
@@ -90,18 +91,18 @@ extension MarketEndpoints on BinanceFutures {
   /// Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.
   Future<Either<String, List<AggregatedTrade>>> compressedAggregateTradesList({
     required String symbol,
-    String? fromId,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    int? fromId,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
     };
-    if (fromId != null) params['fromId'] = fromId;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (fromId != null) params['fromId'] = fromId.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/aggTrades',
       type: RequestType.GET,
@@ -115,20 +116,20 @@ extension MarketEndpoints on BinanceFutures {
   /// Kline/candlestick bars for a symbol.
   ///
   /// Klines are uniquely identified by their open time.
-  Future<Either<String, List<Kline>>> klineCandlestickData({
+  Future<Either<String, List<Kline>>> candlestickData({
     required String symbol,
-    required String interval,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    required Interval interval,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'interval': interval,
+      'interval': interval.toStr(),
     };
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/klines',
       type: RequestType.GET,
@@ -144,19 +145,19 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<Kline>>> continuousContractKlineCandlestickData({
     required String pair,
     required String contractType,
-    required String interval,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    required Interval interval,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'pair': pair,
       'contractType': contractType,
-      'interval': interval,
+      'interval': interval.toStr(),
     };
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/continuousKlines',
       type: RequestType.GET,
@@ -171,18 +172,18 @@ extension MarketEndpoints on BinanceFutures {
   /// Klines are uniquely identified by their open time.
   Future<Either<String, List<Kline>>> indexPriceKlineCandlestickData({
     required String pair,
-    required String interval,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    required Interval interval,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'pair': pair,
-      'interval': interval,
+      'interval': interval.toStr(),
     };
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/indexPriceKlines',
       type: RequestType.GET,
@@ -197,18 +198,18 @@ extension MarketEndpoints on BinanceFutures {
   /// Klines are uniquely identified by their open time.
   Future<Either<String, List<Kline>>> markPriceKlineCandlestickData({
     required String symbol,
-    required String interval,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    required Interval interval,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'interval': interval,
+      'interval': interval.toStr(),
     };
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/markPriceKlines',
       type: RequestType.GET,
@@ -251,15 +252,15 @@ extension MarketEndpoints on BinanceFutures {
   /// In ascending order.
   Future<Either<String, List<FundingRate>>> getFundingRateHistory({
     String? symbol,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {};
     if (symbol != null) params['symbol'] = symbol;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/fundingRate',
       type: RequestType.GET,
@@ -366,17 +367,17 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<OpenInterestStatistics>>> openInterestStatistics({
     required String symbol,
     required String period,
-    String? limit,
-    String? startTime,
-    String? endTime,
+    int? limit,
+    int? startTime,
+    int? endTime,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
       'period': period,
     };
-    if (limit != null) params['limit'] = limit;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
+    if (limit != null) params['limit'] = limit.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
     return sendRequest(
       path: 'futures/data/openInterestHist',
       type: RequestType.GET,
@@ -392,17 +393,17 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<LongShortRatio>>> topTraderLongShortAccountRatio({
     required String symbol,
     required String period,
-    String? limit,
-    String? startTime,
-    String? endTime,
+    int? limit,
+    int? startTime,
+    int? endTime,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
       'period': period,
     };
-    if (limit != null) params['limit'] = limit;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
+    if (limit != null) params['limit'] = limit.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
     return sendRequest(
       path: 'futures/data/topLongShortAccountRatio',
       type: RequestType.GET,
@@ -418,17 +419,17 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<LongShortRatio>>> topTraderLongShortPositionRatio({
     required String symbol,
     required String period,
-    String? limit,
-    String? startTime,
-    String? endTime,
+    int? limit,
+    int? startTime,
+    int? endTime,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
       'period': period,
     };
-    if (limit != null) params['limit'] = limit;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
+    if (limit != null) params['limit'] = limit.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
     return sendRequest(
       path: 'futures/data/topLongShortPositionRatio',
       type: RequestType.GET,
@@ -444,17 +445,17 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<LongShortRatio>>> longShortRatio({
     required String symbol,
     required String period,
-    String? limit,
-    String? startTime,
-    String? endTime,
+    int? limit,
+    int? startTime,
+    int? endTime,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
       'period': period,
     };
-    if (limit != null) params['limit'] = limit;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
+    if (limit != null) params['limit'] = limit.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
     return sendRequest(
       path: 'futures/data/globalLongShortAccountRatio',
       type: RequestType.GET,
@@ -470,17 +471,17 @@ extension MarketEndpoints on BinanceFutures {
   Future<Either<String, List<TakerLongShortRatio>>> takerBuySellVolume({
     required String symbol,
     required String period,
-    String? limit,
-    String? startTime,
-    String? endTime,
+    int? limit,
+    int? startTime,
+    int? endTime,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
       'period': period,
     };
-    if (limit != null) params['limit'] = limit;
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
+    if (limit != null) params['limit'] = limit.toString();
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
     return sendRequest(
       path: 'futures/data/takerlongshortRatio',
       type: RequestType.GET,
@@ -495,18 +496,18 @@ extension MarketEndpoints on BinanceFutures {
   /// The BLVT NAV system is based on Binance Futures, so the endpoint is based on fapi
   Future<Either<String, List<Kline>>> historicalBLVTNAVKlineCandlestick({
     required String symbol,
-    required String interval,
-    String? startTime,
-    String? endTime,
-    String? limit,
+    required Interval interval,
+    int? startTime,
+    int? endTime,
+    int? limit,
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'interval': interval,
+      'interval': interval.toStr(),
     };
-    if (startTime != null) params['startTime'] = startTime;
-    if (endTime != null) params['endTime'] = endTime;
-    if (limit != null) params['limit'] = limit;
+    if (startTime != null) params['startTime'] = startTime.toString();
+    if (endTime != null) params['endTime'] = endTime.toString();
+    if (limit != null) params['limit'] = limit.toString();
     return sendRequest(
       path: 'fapi/v1/lvtKlines',
       type: RequestType.GET,
