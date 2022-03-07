@@ -29,7 +29,7 @@ class Symbol {
 
   Symbol.fromMap(Map m)
       : symbol = m['symbol'],
-        pair = m['pair'],
+        pair = m['pair'] ?? "",
         contractType = m['contractType'],
         deliveryDate = m['deliveryDate'],
         onboardDate = m['onboardDate'],
