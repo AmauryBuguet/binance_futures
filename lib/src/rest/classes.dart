@@ -74,7 +74,7 @@ class RateLimit {
 class AssetInfo {
   String asset;
   bool marginAvailable;
-  int? autoAssetExchange;
+  dynamic autoAssetExchange;
 
   AssetInfo.fromMap(Map m)
       : asset = m['asset'],
