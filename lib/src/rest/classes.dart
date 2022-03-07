@@ -40,7 +40,9 @@ class Symbol {
         baseAssetPrecision = m['baseAssetPrecision'],
         quotePrecision = m['quotePrecision'],
         underlyingType = m['underlyingType'] ?? "",
-        underlyingSubType = m['underlyingSubType'].cast<String>(),
+        underlyingSubType = m['underlyingSubType'] is List<String>
+            ? m['underlyingSubType']
+            : [],
         settlePlan = m['settlePlan'] ?? 0,
         triggerProtect = double.tryParse(m['triggerProtect']) ?? 0,
         filters = (m['filters'] as List<dynamic>)
