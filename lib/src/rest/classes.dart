@@ -48,10 +48,12 @@ class Symbol {
         settlePlan = m['settlePlan'],
         triggerProtect = double.parse(m['triggerProtect']),
         filters = m['filters'],
-        orderType = (m['OrderType'] as List<String>)
-            .map((e) => e.toOrderTypeEnum())
-            .toList(),
-        timeInForce = (m['timeInForce'] as List<String>)
+        orderType = m.containsKey('OrderType')
+            ? (m['OrderType'] as List<String>)
+                .map((e) => e.toOrderTypeEnum())
+                .toList()
+            : [],
+        timeInForce = (m['timeInForce'] ?? [] as List<String>)
             .map((e) => e.toTimeInForceEnum())
             .toList(),
         liquidationFee = double.parse(m['liquidationFee']),
