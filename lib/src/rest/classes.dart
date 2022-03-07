@@ -8,8 +8,6 @@ class Symbol {
   int deliveryDate;
   int onboardDate;
   String status;
-  double maintMarginPercent;
-  double requiredMarginPercent;
   String baseAsset;
   String quoteAsset;
   String marginAsset;
@@ -30,23 +28,21 @@ class Symbol {
   Symbol.fromMap(Map m)
       : symbol = m['symbol'],
         pair = m['pair'] ?? "",
-        contractType = m['contractType'],
-        deliveryDate = m['deliveryDate'],
-        onboardDate = m['onboardDate'],
-        status = m['status'],
-        maintMarginPercent = double.parse(m['maintMarginPercent']),
-        requiredMarginPercent = double.parse(m['requiredMarginPercent']),
+        contractType = m['contractType'] ?? "",
+        deliveryDate = m['deliveryDate'] ?? 0,
+        onboardDate = m['onboardDate'] ?? 0,
+        status = m['status'] ?? "",
         baseAsset = m['baseAsset'],
         quoteAsset = m['quoteAsset'],
-        marginAsset = m['marginAsset'],
-        pricePrecision = m['pricePrecision'],
-        quantityPrecision = m['quantityPrecision'],
+        marginAsset = m['marginAsset'] ?? "",
+        pricePrecision = m['pricePrecision'] ?? 1,
+        quantityPrecision = m['quantityPrecision'] ?? 1,
         baseAssetPrecision = m['baseAssetPrecision'],
         quotePrecision = m['quotePrecision'],
-        underlyingType = m['underlyingType'],
+        underlyingType = m['underlyingType'] ?? "",
         underlyingSubType = m['underlyingSubType'].cast<String>(),
-        settlePlan = m['settlePlan'],
-        triggerProtect = double.parse(m['triggerProtect']),
+        settlePlan = m['settlePlan'] ?? 0,
+        triggerProtect = double.tryParse(m['triggerProtect']) ?? 0,
         filters = (m['filters'] as List<dynamic>)
             .map((e) => Filter.fromMap(e))
             .toList(),
