@@ -48,12 +48,12 @@ class Symbol {
         settlePlan = m['settlePlan'],
         triggerProtect = double.parse(m['triggerProtect']),
         filters = m['filters'],
-        orderTypes = m.containsKey('OrderType')
+        orderTypes = m['OrderType'] is List<String>
             ? (m['OrderType'] as List<String>)
                 .map((e) => e.toOrderTypeEnum())
                 .toList()
             : [],
-        timeInForceList = m.containsKey('timeInForce')
+        timeInForceList = m['timeInForce'] is List<String>
             ? (m['timeInForce'] as List<String>)
                 .map((e) => e.toTimeInForceEnum())
                 .toList()
