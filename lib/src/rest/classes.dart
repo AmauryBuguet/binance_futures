@@ -60,8 +60,12 @@ class Symbol {
                 .map((e) => e.toTimeInForceEnum())
                 .toList()
             : [],
-        liquidationFee = double.parse(m['liquidationFee']),
-        marketTakeBound = double.parse(m['marketTakeBound']);
+        liquidationFee = m.containsKey("liquidationFee")
+            ? double.parse(m['liquidationFee'])
+            : 0,
+        marketTakeBound = m.containsKey('marketTakeBound')
+            ? double.parse(m['marketTakeBound'])
+            : 0;
 }
 
 class Filter {
