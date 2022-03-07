@@ -44,7 +44,9 @@ class Symbol {
             ? m['underlyingSubType']
             : [],
         settlePlan = m['settlePlan'] ?? 0,
-        triggerProtect = double.tryParse(m['triggerProtect']) ?? 0,
+        triggerProtect = m.containsKey('triggerProtect')
+            ? double.parse(m['triggerProtect'])
+            : 0,
         filters = (m['filters'] as List<dynamic>)
             .map((e) => Filter.fromMap(e))
             .toList(),
