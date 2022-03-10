@@ -658,3 +658,31 @@ class ComissionRate {
         makerCommissionRate = double.parse(m['makerCommissionRate']),
         takerCommissionRate = double.parse(m['takerCommissionRate']);
 }
+
+class LeverageBracket {
+  int bracket;
+  int initialLeverage;
+  int notionalCap;
+  int notionalFloor;
+  double maintMarginRatio;
+  int cum;
+
+  LeverageBracket.fromMap(Map m)
+      : bracket = m['bracket'],
+        initialLeverage = m['initialLeverage'],
+        notionalCap = m['notionalCap'],
+        notionalFloor = m['notionalFloor'],
+        maintMarginRatio = double.parse(m['maintMarginRatio']),
+        cum = m['cum'];
+}
+
+class Leverage {
+  String symbol;
+  List<LeverageBracket> brackets;
+
+  Leverage.fromMap(Map m)
+      : symbol = m['symbol'],
+        brackets = (m['brackets'] as List<dynamic>)
+            .map((e) => LeverageBracket.fromMap(e))
+            .toList();
+}

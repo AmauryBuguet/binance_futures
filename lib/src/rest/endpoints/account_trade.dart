@@ -496,4 +496,39 @@ extension AccountTradeEndpoints on BinanceFutures {
     ).then(
         (r) => r.isLeft ? Left(r.left) : Right(ComissionRate.fromMap(r.right)));
   }
+
+  /// Get account leverage of a specific symbol.
+  Future<Either<String, Leverage>> notionalAndLeverageBrackets({
+    required String symbol,
+    String? recvWindow,
+  }) {
+    Map<String, String> params = {
+      'symbol': symbol,
+    };
+    if (recvWindow != null) params['recvWindow'] = recvWindow;
+    return sendRequest(
+      path: 'fapi/v1/leverageBracket',
+      type: RequestType.GET,
+      params: params,
+      keyRequired: true,
+      signatureRequired: true,
+      timestampRequired: true,
+    ).then((r) => r.isLeft ? Left(r.left) : Right(Leverage.fromMap(r.right)));
+  }
+
+  /// Get account leverage of all symbols.
+  Future<Either<String, Leverage>> allNotionalAndLeverageBrackets({
+    String? recvWindow,
+  }) {
+    Map<String, String> params = {};
+    if (recvWindow != null) params['recvWindow'] = recvWindow;
+    return sendRequest(
+      path: 'fapi/v1/leverageBracket',
+      type: RequestType.GET,
+      params: params,
+      keyRequired: true,
+      signatureRequired: true,
+      timestampRequired: true,
+    ).then((r) => r.isLeft ? Left(r.left) : Right(Leverage.fromMap(r.right)));
+  }
 }
