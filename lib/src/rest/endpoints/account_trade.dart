@@ -517,7 +517,7 @@ extension AccountTradeEndpoints on BinanceFutures {
   }
 
   /// Get account leverage of all symbols.
-  Future<Either<String, Leverage>> allNotionalAndLeverageBrackets({
+  Future<Either<String, List<Leverage>>> allNotionalAndLeverageBrackets({
     String? recvWindow,
   }) {
     Map<String, String> params = {};
@@ -529,6 +529,8 @@ extension AccountTradeEndpoints on BinanceFutures {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(Leverage.fromMap(r.right)));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<Leverage>.from(r.right.map((e) => Leverage.fromMap(e)))));
   }
 }
