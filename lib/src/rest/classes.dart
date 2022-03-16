@@ -393,7 +393,7 @@ class Order {
 
   Order.fromMap(Map m)
       : clientOrderId = m['clientOrderId'],
-        cumQty = double.parse(m['cumQty']),
+        cumQty = double.parse(m['cumQty'] ?? "0"),
         time = m['time'] ?? 0,
         cumQuote = double.parse(m['cumQuote']),
         executedQty = double.parse(m['executedQty']),
